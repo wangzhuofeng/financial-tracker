@@ -10,7 +10,7 @@
         </tr>
     </thead>
     <tbody>
-        <%= @user_stocks.each do |user_stock| %>
+        <% @user_stocks.each do |user_stock| %>
             <tr>
                 <td><%= user_stock.stock.name %></td>
                 <td><%= user_stock.stock.ticker %></td>
