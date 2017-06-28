@@ -1,6 +1,7 @@
 class User::RegistrationsController < Devise::RegistrationsController
-   before_filter :configure_permitted_parameters, only: [:sign_up, :account_update]
+   before_filter :configure_permitted_parameters
    
+
    protected
    
    def configure_permitted_parameters

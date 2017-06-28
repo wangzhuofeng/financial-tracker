@@ -15,50 +15,38 @@
         </div>
     <% end %>
     <%= render 'shared/spinner' %>
+    <%# debugger %>
     <% if @users %>
-        <div id="friend-lookup-results" class="well results-block col-md-10">
-            <table class="search-results-table table table-striped">
-                <thead>
-                    <tr>
-                        <th>Full name</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for @users.each do |user| %>
-                    <tr>
-                        <td>user.full_name</td>
-                        <td>user.email</td>
-                        <td><%= link_to "View", user_path(user) %>&nbsp;
-                            <% if current_user.not_friend_with? %>
-                                <%= link_to "Follow", friendships_path(user),
-                                        class: "btn btn-xs btn-success", method: :post %>
-                            <% end %>            
-                        </td>
-                    </tr>
-                    <% end %>
-                </tbody>
-                <tr>
-                    
-                </tr>
-            </table>
-          
-                <%= link_to "Add to my portfolio", user_friends_path(user: current_user, friend_ticker: @friend.ticker, friend_id: @friend.id ? @friend.id : ""),
-                    class: "btn btn-xs btn-primary", method: :post %>
-            <% else %>
-                <span class="label label-default">
-                    friend can not be added because you have already added 
-                    <% if !current_user.under_friend_limit? %>
-                        10 friends.
-                    <% end %>
-                    <% if current_user.friend_already_added?(@friend.ticker) %>
-                        this friend.
-                    <% end %>
-                </span>
-            <% end %>
-        </div>
+        <% if @users.size > 0 %>
+            <div id="friend-lookup-results" class="well results-block col-md-10">
+                <table class="search-results-table table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Full name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @users.each do |user| %>
+                        <tr>
+                            <td><%= user.full_name %></td>
+                            <td><%= user.email %></td>
+                            <td><%= link_to "View", user_path(user) %>&nbsp;
+                                <% if current_user.not_friend_with?(user) %>
+                                    <%= link_to "Follow", add_friend_path(friend_id: user), 
+                                                            class: "btn btn-xs btn-success", 
+                                                            method: :post %>
+                                <% else %>
+                                    <span class="label label-primary">Following</span>
+                                <% end %>
+                            </td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        <% end %>
     <% end %>
     <div id="friend-lookup-errors"></div>
-    
 </div>

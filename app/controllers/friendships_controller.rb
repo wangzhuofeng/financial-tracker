@@ -3,10 +3,10 @@ class FriendshipsController < ApplicationController
   
   def destroy
      if @friendship
-         @friendship.destroy
-         flash[:success] = "You have unfollowed this user."
+        @friendship.destroy
+        flash[:success] = "You have unfollowed this user."
      else
-         flash[:danger] = "You are not following this user."
+        flash[:danger] = "You are not following this user."
      end
      redirect_to my_friends_path
         
@@ -15,8 +15,6 @@ class FriendshipsController < ApplicationController
       
   private
   def set_friendship
-     @friend = User.find(params[:id])
-     @user = current_user
-     @friendship = Friendship.where(user: @user, friend: @friend)
+     @friendship = current_user.friendships.where(friend_id: params[:id]).first
   end
 end

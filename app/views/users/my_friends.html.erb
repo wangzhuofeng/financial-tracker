@@ -1,6 +1,6 @@
 <h1>My Friends' Stock Tracking</h1>
 
-<%#= render 'friends/lookup' %>
+<%= render 'friends/lookup' %>
 <% if @friends.size > 0 %>
     <table class="table table-striped">
         <thead>
@@ -23,6 +23,7 @@
                     <td>
                         <%= link_to "View Details", user_path(friend),
                                                     class: "btn btn-xs btn-primary" %>&nbsp;
+                            
                         <%= link_to "Unfollow", friendship_path(friend), 
                                                     method: :delete, 
                                                     data: {confirm: "Are you sure?"},
