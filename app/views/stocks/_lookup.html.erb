@@ -1,15 +1,15 @@
 <div id="stock-lookup">
-    <h3>Search for Stocks</h3>
+    <h3><%= t(".title") %></h3>
     <%= form_tag search_stocks_path, remote: true, method: :get, id: 'stock-lookup-form' do %>
         <div class="form-group row no-padding text-center col-md-12">
             <div class="col-md-10" style="margin-bottom: 15px;">
-                <%= text_field_tag :stock, params[:stock], placeholder: "Stock ticker symble", autofocus: true,
+                <%= text_field_tag :stock, params[:stock], placeholder: t(".stock_placeholder"), autofocus: true,
                                                                         class: "form-control search-box input-lg" %>
             </div>
             <div class="col-md-2">
                 
                 <%= button_tag(type: :submit, class: "btn btn-lg btn-success") do %>
-                    <i class="fa fa-search"></i> Look up a stock
+                    <i class="fa fa-search"></i> <%= t ".search_btn" %>
                 <% end %>
             </div>
         </div>
@@ -17,20 +17,20 @@
     <%= render 'shared/spinner' %>
     <% if @stock %>
         <div id="stock-lookup-results" class="well results-block">
-            <strong>Symbol:</strong> <%= @stock.ticker %>
-            <strong>Name:</strong> <%= @stock.name %>
-            <strong>Price:</strong> <%= @stock.price %>
+            <strong><%= Stock.human_attribute_name(:ticker) %>:</strong> <%= @stock.ticker %>
+            <strong><%= Stock.human_attribute_name(:name) %>:</strong> <%= @stock.name %>
+            <strong><%= Stock.human_attribute_name(:current_price) %>:</strong> <%= @stock.price %>
             <% if current_user.can_add_stock?(@stock.ticker) %>
-                <%= link_to "Add to my portfolio", user_stocks_path(user: current_user, stock_ticker: @stock.ticker, stock_id: @stock.id ? @stock.id : ""),
+                <%= link_to t(".add_to_my_portfolio"), user_stocks_path(user: current_user, stock_ticker: @stock.ticker, stock_id: @stock.id ? @stock.id : ""),
                     class: "btn btn-xs btn-primary", method: :post %>
             <% else %>
                 <span class="label label-default">
-                    Stock can not be added because you have already added 
+                    
                     <% if !current_user.under_stock_limit? %>
-                        10 stocks.
+                        <%= t(".stock_over_limit") %>
                     <% end %>
                     <% if current_user.stock_already_added?(@stock.ticker) %>
-                        this stock.
+                        <%= t(".stock_already_added") %>
                     <% end %>
                 </span>
             <% end %>

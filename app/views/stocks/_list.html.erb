@@ -1,11 +1,11 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Symbol</th>
-            <th>Current Price</th>
+            <th><%= Stock.human_attribute_name(:name) %></th>
+            <th><%= Stock.human_attribute_name(:ticker) %></th>
+            <th><%= Stock.human_attribute_name(:current_price) %></th>
             <% if @user.id == current_user.id %>
-            <th>Actions</th>
+            <th><%= t("actions") %></th>
             <% end %>
         </tr>
     </thead>
@@ -16,9 +16,9 @@
                 <td><%= user_stock.stock.ticker %></td>
                 <td><%= user_stock.stock.price %></td>
                 <% if @user.id == current_user.id %>
-                    <td><%= link_to "Delete", user_stock_path(user_stock), 
+                    <td><%= link_to t("delete"), user_stock_path(user_stock), 
                                                 method: :delete, 
-                                                data: {confirm: "Are you sure?"},
+                                                data: {confirm: t("are_you_sure")},
                                                 class: "btn btn-xs btn-danger" %>
                     </td>
                 <% end %>

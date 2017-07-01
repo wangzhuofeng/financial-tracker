@@ -1,23 +1,26 @@
 Rails.application.routes.draw do
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    devise_for :users, :controllers => { :registrations => "user/registrations" }
+    resources :user_stocks, except: [:show, :edit, :update]
+    resources :friendships, except: [:show, :edit, :update]
+    resources :users, only: [:show]
+    
+    root 'welcome#index'
+    get 'my_portfolio', to: 'users#my_portfolio'
+    get 'search_stocks', to: 'stocks#search'
+    get 'my_friends', to: 'users#my_friends'
+    get 'search_friends', to: 'users#search'
+    post 'add_friend', to: 'users#add_friend'
+  end
   
-  devise_for :users, :controllers => { :registrations => "user/registrations" }
-  resources :user_stocks, except: [:show, :edit, :update]
-  resources :friendships, except: [:show, :edit, :update]
-  resources :users, only: [:show]
-  
-  
-
+  get '*path', to: redirect("/#{I18n.default_locale}/%{path}")
+  get '', to: redirect("/#{I18n.default_locale}")
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
-  get 'my_portfolio', to: 'users#my_portfolio'
-  get 'search_stocks', to: 'stocks#search'
-  get 'my_friends', to: 'users#my_friends'
-  get 'search_friends', to: 'users#search'
-  post 'add_friend', to: 'users#add_friend'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

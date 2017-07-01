@@ -39,7 +39,7 @@ class UserStocksController < ApplicationController
           @user_stock = UserStock.new(stock: stock, user: current_user)
         else
           @user_stock = nil
-          flash[:error] = "Stock is not avalible!"
+          flash[:error] = t("stock_is_not_avalible")
         end
       end
     end
@@ -47,7 +47,7 @@ class UserStocksController < ApplicationController
 
     respond_to do |format|
       if @user_stock.save
-        format.html { redirect_to my_portfolio_path, notice: "Stock #{@user_stock.stock.ticker} was added to portfolio." }
+        format.html { redirect_to my_portfolio_path, notice: t(".stock_added") }
         #format.json { render :show, status: :created, location: @user_stock }
       else
         #format.html { render :new }
@@ -75,7 +75,7 @@ class UserStocksController < ApplicationController
   def destroy
     @user_stock.destroy
     respond_to do |format|
-      format.html { redirect_to my_portfolio_path, notice: 'Stock was successfully removed from portfolio.' }
+      format.html { redirect_to my_portfolio_path, notice: t('.stock_removed') }
       format.json { head :no_content }
     end
   end

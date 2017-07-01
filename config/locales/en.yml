@@ -20,4 +20,69 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+    welcome:
+        index:
+            title: "Welcome to Financial Tracker"
+            
+    error:
+        stock_is_not_availble: "Stock is not available"
+        
+    layouts:
+        navigation:
+            app_name: "Financial Tracker"
+            my_portfolio: "My Portfolio"
+            my_profile: "My Profile"
+            my_friends: "My Friends"
+            logout: "logout"
+    activerecord:
+        attributes:
+            stock:
+                current_price: "Current Price"
+                name: "Name"
+                ticker: "Symbol"
+            user:
+                first_name: "First name"
+                last_name: "Last name"
+                full_name: "Full name"
+                email: "Email"
+                
+    stocks:
+        lookup:
+            title: "Search for stocks"
+            stock_placeholder: "Stock symbol"
+            search_btn: "Search"
+            add_to_my_portfolio: "Add to my portfolio"
+            stock_already_added: "In your portfolio"
+            stock_over_limit: "Stock over limit"
+            
+            
+            
+    user_stocks:
+        create:
+            stock_added: "Stock added."
+        destroy:
+            stock_removed: "Stock removed"
+    
+    users:
+        my_friends:
+            title: "My Friends"
+            no_friends_yet: "You don't have any friends yet. Please add some."
+            
+    friends:
+        lookup:
+            title: "Friend search"
+            search_placeholder: "First name, Last name, or Email"
+            search_btn: "Search Users"
+            
+    shared:
+        spinner:
+            searching: "Searching"
+            
+    actions: "Actions"
+    view: "View"
+    follow: "Follow"
+    following: "Following"
+    delete: "Delete"
+    are_you_sure: "Are you sure?"
+    unfollow: "Unfollow"
+    you_have_unfollowed_this_user: "You have unfollowed this user."

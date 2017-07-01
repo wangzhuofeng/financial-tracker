@@ -1,15 +1,15 @@
 <div id="friend-lookup">
-    <h3>Search for friends</h3>
+    <h3><%= t(".title") %></h3>
     <%= form_tag search_friends_path, remote: true, method: :get, id: 'friend-lookup-form' do %>
         <div class="form-group row no-padding text-center col-md-12">
             <div class="col-md-10" style="margin-bottom: 15px;">
-                <%= text_field_tag :search_param, params[:search_param], placeholder: "First name, Last name, or Email", autofocus: true,
+                <%= text_field_tag :search_param, params[:search_param], placeholder: t('.search_placeholder'), autofocus: true,
                                                                         class: "form-control search-box input-lg" %>
             </div>
             <div class="col-md-2">
                 
                 <%= button_tag(type: :submit, class: "btn btn-lg btn-success") do %>
-                    <i class="fa fa-search"></i> Look up a friend
+                    <i class="fa fa-search"></i> <%= t '.search_btn' %>
                 <% end %>
             </div>
         </div>
@@ -22,9 +22,9 @@
                 <table class="search-results-table table table-striped">
                     <thead>
                         <tr>
-                            <th>Full name</th>
-                            <th>Email</th>
-                            <th>Actions</th>
+                            <th><%= User.human_attribute_name(:full_name) %></th>
+                            <th><%= User.human_attribute_name(:email) %></th>
+                            <th><%= t('actions') %></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,13 +32,14 @@
                         <tr>
                             <td><%= user.full_name %></td>
                             <td><%= user.email %></td>
-                            <td><%= link_to "View", user_path(user) %>&nbsp;
+                            <td><%= link_to t("view"), user_path(user),
+                                                        class: "btn btn-xs btn-primary" %>&nbsp;
                                 <% if current_user.not_friend_with?(user) %>
-                                    <%= link_to "Follow", add_friend_path(friend_id: user), 
+                                    <%= link_to t("follow"), add_friend_path(friend_id: user), 
                                                             class: "btn btn-xs btn-success", 
                                                             method: :post %>
                                 <% else %>
-                                    <span class="label label-primary">Following</span>
+                                    <span class="label label-default"><%= t('following') %></span>
                                 <% end %>
                             </td>
                         </tr>

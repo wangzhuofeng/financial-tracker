@@ -4,7 +4,7 @@ class FriendshipsController < ApplicationController
   def destroy
      if @friendship
         @friendship.destroy
-        flash[:success] = "You have unfollowed this user."
+        flash[:success] = t("you_have_unfollowed_this_user")
      else
         flash[:danger] = "You are not following this user."
      end
